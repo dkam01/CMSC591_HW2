@@ -1,0 +1,201 @@
+---
+title: Homework 2 - ER Diagrams
+author:
+    - name: Skippy McBoatface
+      email: skippy@mcboatface.com
+format:
+    html:
+        embed-resources: true
+        html-math-method: katex
+        theme: spacelab
+        toc: true
+
+## Useful references:
+
+# - Basic Markdown: https://quarto.org/docs/authoring/markdown-basics.html
+# - Quarto figures: https://quarto.org/docs/authoring/figures.html
+# - HTML document basics: https://quarto.org/docs/output-formats/html-basics.html
+# - Quarto guide: https://quarto.org/docs/guide/
+# - VS Code and Quarto: https://quarto.org/docs/tools/vscode.html
+#   (RTFM and GET THE EXTENSION!!!!)
+
+---
+
+<!--
+Update the link below to reflect YOUR repository.
+You will NOT be scored for your README unless you include this link.  The human grader
+will follow the link to the github repo to evaluate how it looks.
+
+FYI - this is an HTML-style comment that is ignored by Quarto and Pandoc.
+    You can add them anywhere to leave breadcrumbs for yourself!
+-->
+[[Link to repository](https://github.com/jleonard99/cmsc408-fa2024-hw2-template)]
+
+(This is a scaffold project. I'll be providing scaffolds throughout the semester
+to get you working faster, and to make grading much easier for the TA team.)
+
+(Your overarching goal is to edit/modify this document to NOT look like I gave it to you, but rather customize
+it to your own editorial and artistics standards.  At a minimum, you should delete anything in parenthesis!
+I'll try to provide you with instructions, like those below, for what should go into each section.  As
+you get more practice, you'll not need my guidance for pulling these report formats together!)
+
+(The autograder will scan this QMD searching for snippets of my original text.  It will take off points
+if it finds any!)
+
+(Please remove these first paragraphs and add your own intro/overview section.)
+
+(Please edit the text below while KEEPING the header2 ## /header3 ### structure outline structure.)
+
+(In your own words, add an overview of the assignment in this section.  Your audience is a student in another class who might know much about database design.  What is this assignment about?  What are the funning diagrams?)
+
+## (Title of model 1 goes here!)
+
+(copy/paste system description from assignment description)
+
+### Conceptual design in Chen Notation
+
+(description here.  modify diagram!)
+
+```{dot}
+//| label: fig-chen-1
+//| fig-cap: "A simple Chen Diagram"
+//| fig-width: 100%
+graph ER {
+    // "graph" creates undirected graphs.  It can be used for more than just ER diagrams!
+    // There are many different layouts.  We're going to use layout=neato 
+    // See: https://graphviz.org/
+    //      https://graphviz.org/doc/info/lang.html
+    //      https://graphviz.org/docs/layouts/
+    //      https://graphviz.org/docs/layouts/neato/
+
+
+    // these commands apply only to the main title/label
+    // I added them as a demonstration of how to add a title.
+    // Since we're using Quarto, I suggest DELETING or commenting these out.
+    fontname="Helvetica,Arial,sans-serif"
+    fontsize=30;   // Font size for the entire graph
+    label="(remove this title from your final draft!)";
+    labelloc="t";  // "t"op, "b"ottom, "c"enter of graph
+    labeljust="c"; // "l"eft, "c"enter, "r"ight
+
+    // I picked RED to make the canvas of the diagram clearer.
+    // Your final figure should use bgcolor=transparent
+    
+    bgcolor=red;   // Use bgcolor=transparent for final plot
+
+    //these are useful, but appear not to work with layout=neato
+    //nodesep=2.00;  // Separation between nodes on the same level
+    //ranksep=0.80;  // Separation between nodes on different levels
+    //size="4,4";    // Graph size
+    //center=false   // Center diagram within graph canvas.
+
+    // See: https://graphviz.org/docs/layouts/neato/
+    layout=neato  // Very useful for auto placing nodes.  Minimizes node/edge energy in system
+    scale=1.2     // changes size of shapes all at once
+
+
+    // Set defaults for nodes
+    node [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Smaller font size, reduced node size
+
+    // Define nodes
+    node [shape=box];
+    course; institute; student;
+    node [shape=ellipse];
+    {node [label="name"] name0; name1; name2;}
+    code; grade; number;
+    
+    node [shape=diamond,style=filled,color=lightgrey]; 
+    "C-I"; "S-C"; "S-I";
+
+    // Set defaults for edges then draw edges
+    edge [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Reduced font size for edges
+
+    // Define edges
+    name0 -- course;
+    code -- course;
+    course -- "C-I" [label="n"]; // Edge length
+    "C-I" -- institute [label="1"]; // Edge length
+    institute -- name1;
+    institute -- "S-I" [label="1"]; // Edge length
+    "S-I" -- student [label="n"]; // Edge length
+    student -- grade;
+    student -- name2;
+    student -- number;
+    student -- "S-C" [label="m"]; // Edge length
+    "S-C" -- course [label="n"]; // Edge length
+
+}
+
+```
+
+### Conceptual design in Crows foot notation
+
+(add description here. Modify diagram!)
+
+(styling mermaid diagrams is very tricky and requires knowledge and use of the CSS styles
+used to create your mermaid diagrams.  For our purposes, this is plenty good enough.
+To learn more use this prompt in clean ChatGPT: 
+  "i'm using mermaid to create crow's foot notion er diagrams.  can I directly position where each entity is placed?"
+)
+
+```{mermaid}
+erDiagram 
+    
+    BOOK {
+        int bookID
+        string title
+    }
+
+    AUTHOR {
+        int authorID
+        string name
+    }
+
+    AUTHOR ||--o{ BOOK : writes
+```
+
+### Design assumptions, considerations and tradeoffs
+
+(describe your assumptions. Discuss any design tradeoffs or consideration.)
+
+### Relation sets
+
+The following are the initial relation sets for the system:
+
+* building( <ins>building_id</ins>, address, owner_name )
+
+## (Title of model 2 goes here!)
+
+(add description copy/pasted from description)
+
+### Conceptual design in Chen Notation
+
+(as above, add ER diagram using Chen notation)
+
+### Conceptual design in Crows foot notation
+
+(as above, add ER diagram using Crows Foot notation)
+
+### Design assumptions, considerations and tradeoffs
+
+(describe your assumptions. Discuss any design tradeoffs or consideration.)
+
+### Relation sets
+
+The following are the initial relation sets for the system:
+
+* building( <ins>building_id</ins>, address, owner_name )
+
+## Reflection
+
+(fill in the *answer here* blocks below.  Keep the existing formatting to see what a definition format looks like.)
+
+What do you find most difficult about the assignment?
+: (answer here)
+
+What do you find easiest about the assignment?
+: (answer here)
+
+What did you learn that will name the next assignment easier?
+: (answer here)
+
