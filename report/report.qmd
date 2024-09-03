@@ -1,8 +1,8 @@
 ---
 title: Homework 2 - ER Diagrams
 author:
-    - name: Skippy McBoatface
-      email: skippy@mcboatface.com
+    - name: Dhilan Kamani
+      email: kamanids@vcu.edu
 format:
     html:
         embed-resources: true
