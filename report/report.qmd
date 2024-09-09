@@ -29,38 +29,25 @@ will follow the link to the github repo to evaluate how it looks.
 FYI - this is an HTML-style comment that is ignored by Quarto and Pandoc.
     You can add them anywhere to leave breadcrumbs for yourself!
 -->
-[[Link to repository](https://github.com/jleonard99/cmsc408-fa2024-hw2-template)]
+[[Repository](https://github.com/dkam01/CMSC591_HW2.git)]
 
-(This is a scaffold project. I'll be providing scaffolds throughout the semester
-to get you working faster, and to make grading much easier for the TA team.)
+## Project Overview
 
-(Your overarching goal is to edit/modify this document to NOT look like I gave it to you, but rather customize
-it to your own editorial and artistics standards.  At a minimum, you should delete anything in parenthesis!
-I'll try to provide you with instructions, like those below, for what should go into each section.  As
-you get more practice, you'll not need my guidance for pulling these report formats together!)
+Using entity-relation diagrams (ERD), a plan can be laid out, detailing entities, their attributes, and their relationships to one another. Entities are essentially the real world objects that are being described/identified by attributes, for example, a gas heater (entity) has a serial number (attribute). A relationship that gas heater may have is to the AC/heating system, or to the water heater. This project provides real world examples of entity sets with varying relationships as practice to produce ERDs using both Chen and Crows foot diagram notations. Chen diagrams provide an explicit description of relationships while Crows foot diagrams are minimalistic, still providing the same information, just in different ways.
 
-(The autograder will scan this QMD searching for snippets of my original text.  It will take off points
-if it finds any!)
+## Real Estate Listing System
 
-(Please remove these first paragraphs and add your own intro/overview section.)
-
-(Please edit the text below while KEEPING the header2 ## /header3 ### structure outline structure.)
-
-(In your own words, add an overview of the assignment in this section.  Your audience is a student in another class who might know much about database design.  What is this assignment about?  What are the funning diagrams?)
-
-## (Title of model 1 goes here!)
-
-(copy/paste system description from assignment description)
+Imagine a real estate agency that wants to track properties, agents, and clients. Each property has a property ID, address, and listing price. Agents have an agent ID, name, and contact information. Clients have a client ID, name, and budget. An agent can handle multiple properties, but each property is listed by a single agent. Clients can be interested in multiple properties, and each property can have multiple interested clients.
 
 ### Conceptual design in Chen Notation
 
-(description here.  modify diagram!)
+Below is an entity-relation diagram in Chen notation for a real estate listing system. The diagram explores the relationships between agents, properties, and clients.
 
 ```{dot}
-//| label: fig-chen-1
-//| fig-cap: "A simple Chen Diagram"
+//| label: fig-RELS
+//| fig-cap: "A Chen diagram for a real estate listing system"
 //| fig-width: 100%
-graph ER {
+graph RELS {
     // "graph" creates undirected graphs.  It can be used for more than just ER diagrams!
     // There are many different layouts.  We're going to use layout=neato 
     // See: https://graphviz.org/
@@ -72,16 +59,16 @@ graph ER {
     // these commands apply only to the main title/label
     // I added them as a demonstration of how to add a title.
     // Since we're using Quarto, I suggest DELETING or commenting these out.
-    fontname="Helvetica,Arial,sans-serif"
-    fontsize=30;   // Font size for the entire graph
-    label="(remove this title from your final draft!)";
-    labelloc="t";  // "t"op, "b"ottom, "c"enter of graph
-    labeljust="c"; // "l"eft, "c"enter, "r"ight
+    // fontname="Helvetica,Arial,sans-serif"
+    // fontsize=30;   // Font size for the entire graph
+    // label="(remove this title from your final draft!)";
+    // labelloc="t";  // "t"op, "b"ottom, "c"enter of graph
+    // labeljust="c"; // "l"eft, "c"enter, "r"ight
 
     // I picked RED to make the canvas of the diagram clearer.
     // Your final figure should use bgcolor=transparent
     
-    bgcolor=red;   // Use bgcolor=transparent for final plot
+    bgcolor=transparent;   // Use bgcolor=transparent for final plot
 
     //these are useful, but appear not to work with layout=neato
     //nodesep=2.00;  // Separation between nodes on the same level
@@ -99,30 +86,34 @@ graph ER {
 
     // Define nodes
     node [shape=box];
-    course; institute; student;
+    Property; Agent; Client;
     node [shape=ellipse];
-    {node [label="name"] name0; name1; name2;}
-    code; grade; number;
+    {node [label="ID"] pID; aID; cID;}
+    {node [label="Name"] aName; cName;}
+    Address; Price; Phone; Budget;
     
     node [shape=diamond,style=filled,color=lightgrey]; 
-    "C-I"; "S-C"; "S-I";
+    "A-P"; "P-A"; "C-P";
 
     // Set defaults for edges then draw edges
     edge [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Reduced font size for edges
 
     // Define edges
-    name0 -- course;
-    code -- course;
-    course -- "C-I" [label="n"]; // Edge length
-    "C-I" -- institute [label="1"]; // Edge length
-    institute -- name1;
-    institute -- "S-I" [label="1"]; // Edge length
-    "S-I" -- student [label="n"]; // Edge length
-    student -- grade;
-    student -- name2;
-    student -- number;
-    student -- "S-C" [label="m"]; // Edge length
-    "S-C" -- course [label="n"]; // Edge length
+    pID -- Property;
+    Address -- Property;
+    Price -- Property;
+    Property -- "P-A" [label="1"]; // Edge length
+    "P-A" -- Agent [label="1"]; // Edge length
+    aID -- Agent;
+    aName -- Agent;
+    Phone -- Agent;
+    Agent -- "A-P" [label="1"]; // Edge length
+    "A-P" -- Property [label="n"]; // Edge length
+    cID -- Client;
+    cName -- Client;
+    Budget -- Client;
+    Client -- "C-P" [label="n"]; // Edge length
+    "C-P" -- Property [label="n"]; // Edge length
 
 }
 
@@ -130,72 +121,248 @@ graph ER {
 
 ### Conceptual design in Crows foot notation
 
-(add description here. Modify diagram!)
-
-(styling mermaid diagrams is very tricky and requires knowledge and use of the CSS styles
-used to create your mermaid diagrams.  For our purposes, this is plenty good enough.
-To learn more use this prompt in clean ChatGPT: 
-  "i'm using mermaid to create crow's foot notion er diagrams.  can I directly position where each entity is placed?"
-)
+Below is an entity relation diagram for the same real estate listing system as above, however this diagram utilizes Crow's foot notation, providing simplified viewing experience.
 
 ```{mermaid}
 erDiagram 
     
-    BOOK {
-        int bookID
-        string title
+    PROPERTY {
+        int pID
+        int Price
+        string Address
     }
 
-    AUTHOR {
-        int authorID
+    AGENT {
+        int aID
+        int Phone
         string name
     }
 
-    AUTHOR ||--o{ BOOK : writes
+    CLIENT {
+        int cID
+        int Budget
+        string Name
+    }
+
+    PROPERTY }o--|| AGENT : has
+    PROPERTY }|--o{ CLIENT : has
 ```
 
-### Design assumptions, considerations and tradeoffs
+### Design Caveats
 
-(describe your assumptions. Discuss any design tradeoffs or consideration.)
+Assumptions:
+* Clients and agents are only related through a property
+* A client must be interested in at least one property
+* A property can have zero interested clients
+
 
 ### Relation sets
 
 The following are the initial relation sets for the system:
 
-* building( <ins>building_id</ins>, address, owner_name )
+* Agent(agent_ID, name, contact_information)
+* Property(property_ID, address, listing_price)
+* Client(client_ID, name, budget)
 
-## (Title of model 2 goes here!)
+## Restaurant Reservation System
 
-(add description copy/pasted from description)
+Envision a restaurant that wants to manage reservations, customers, and tables. Each reservation has a reservation ID, date, and time. Customers have a customer ID, name, and contact number. Tables have a table number, seating capacity, and location. A customer can make multiple reservations, and each reservation is for a single table. Each table can have multiple reservations over time, but each reservation is associated with only one customer.
 
 ### Conceptual design in Chen Notation
 
-(as above, add ER diagram using Chen notation)
+```{dot}
+//| label: fig-RRS
+//| fig-cap: "A Chen diagram for a restaurant reservation system"
+//| fig-width: 100%
+graph RRS {
+
+    // Set background and layout
+    bgcolor=transparent
+    layout=neato
+    scale=1.2
+
+    // Set defaults for nodes
+    node [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Smaller font size, reduced node size
+
+    // Define nodes
+    node [shape=box];   
+    Reservation; Customer; Table;
+    node [shape=ellipse];
+    {node [label="ID"] resID; custID;}
+    Date; Time; Name; Phone; Table_Num; Capacity; Location;
+    node [shape=diamond, style=filled, color=lightgrey];
+    "R-C"; "C-R"; "T-R"; "R-T"; 
+
+    // Set defaults for edges then draw edges
+    edge [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Reduced font size for edges
+
+    // Define edges
+    Reservation -- resID;
+    Reservation -- Date;
+    Reservation -- Time;
+    Customer -- custID;
+    Customer -- Name;
+    Customer -- Phone;
+    Table -- Table_Num;
+    Table -- Capacity;
+    Table -- Location;
+    Customer -- "C-R" [label = "1"];
+    "C-R" -- Reservation [label = "n"];
+    Reservation -- "R-C" [label = "1"];
+    "R-C" -- Customer [label = "1"];
+    Reservation -- "R-T" [label = "1"];
+    "R-T" -- Table [label = "1"];
+    Table -- "T-R" [label = "1"];
+    "T-R" -- Reservation [label = "many"];
+
+}
+
+```
 
 ### Conceptual design in Crows foot notation
 
-(as above, add ER diagram using Crows Foot notation)
+```{mermaid}
+erDiagram
 
-### Design assumptions, considerations and tradeoffs
+    CUSTOMER ||--|{ RESERVATION : has
+    CUSTOMER{
+        int custID
+        int Phone
+        string Name
+    }
+    
+    RESERVATION }o--|| TABLE : has
+    RESERVATION{
+        int resID
+        string Date
+        string Time
+    }
 
-(describe your assumptions. Discuss any design tradeoffs or consideration.)
+    TABLE{
+        int Table_Num
+        int Capacity
+        string Location
+    }
+
+```
+
+### Design Caveats
+
+* Tables can have zero or one reservation at a time, with many over the course of a day
+* While tables may have a certain capacity, customers may request more seating than the capacity
 
 ### Relation sets
 
 The following are the initial relation sets for the system:
 
-* building( <ins>building_id</ins>, address, owner_name )
+* Reservation( reservation_ID, date, time )
+* Customer( customer_ID, name, contact_number )
+* Table( table_number, seating_capacity, location )
+
+## Sports Tournament Management System
+
+Consider a sports tournament that wants to manage teams, matches, and referees. Each team has a team ID, name, and coach. Matches have a match ID, date, and location. Referees have a referee ID, name, and certification level. A team can participate in multiple matches, and each match involves two teams. A referee can officiate multiple matches, but each match is officiated by a single referee.
+
+### Conceptual design in Chen Notation
+
+```{dot}
+//| label: fig-STMS
+//| fig-cap: "A Chen diagram for a sports tournament management system"
+//| fig-width: 100%
+graph STMS {
+
+    // Set background and layout
+    bgcolor=transparent
+    layout=neato
+    scale=1.2
+
+    // Set defaults for nodes
+    node [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Smaller font size, reduced node size
+
+    // Define nodes
+    node [shape=box];   
+    Team; Match; Referee;
+    node [shape=ellipse];
+    {node [label="ID"] tID; mID; rID}
+    {node [label="Name"] tName, rName}
+    Coach; Date; Location; Cert_Level
+    node [shape=diamond, style=filled, color=lightgrey];
+    "T-M"; "M-T"; "M-R"; "R-M"; 
+
+    // Set defaults for edges then draw edges
+    edge [fontname="Helvetica,Arial,sans-serif",fontsize=10] // Reduced font size for edges
+
+    // Define edges
+    Team -- tID;
+    Team -- tName;
+    Team -- Coach;
+    Match -- mID;
+    Match -- Date;
+    Match -- Location;
+    Referee -- rID;
+    Referee -- rName;
+    Referee -- Cert_Level;
+    Team -- "T-M" [label = "1"];
+    "T-M" -- Match [label = "n"];
+    Match -- "M-T" [label = "1"];
+    "M-T" -- Team [label = "2"];
+    Match -- "M-R" [label = "1"];
+    "M-R" -- Referee [label = "1"];
+    Referee -- "R-M" [label = "1"];
+    "R-M" -- Match [label = "many"];
+
+}
+
+```
+
+### Conceptual design in Crows foot notation
+
+```{mermaid}
+erDiagram
+
+    MATCH{
+        int mID
+        string Date
+        string Location
+    }
+
+    TEAM }|--|{ MATCH : has
+    TEAM{
+        int tID
+        string Name
+        string Coach
+    }
+
+    REFEREE ||--o{ MATCH : has
+    REFEREE{
+        int rID
+        int Cert_Level
+        string Name
+    }
+
+```
+
+### Design Caveats
+
+* Although the Crow's foot diagram denotes matches as having 1 to many teams, there are only 2 teams for each match
+* Every team must play in at least one match to be included in the system
+
+### Relation sets
+
+The following are the initial relation sets for the system:
+
+* Teams( team_ID, name, coach )
+* Match( match_ID, date, location )
+* Referee( referee_ID, name, certification_level )
 
 ## Reflection
 
-(fill in the *answer here* blocks below.  Keep the existing formatting to see what a definition format looks like.)
-
 What do you find most difficult about the assignment?
-: (answer here)
+: Finding where the syntax errors are. I'm used to writing code in a text editor that has a checkstyle which will highlight syntax errors, or in a Python editor, which will spit out line numbers for errors.
 
 What do you find easiest about the assignment?
-: (answer here)
+: Learning the notation for Chen/Crow's foot. Both are pretty intuitive, although Chen notation is highly repetitive, and while I didn't make any errors writing the code for it on this assignment, I can tell that on larger sets of entitities, it could become a hassle and lead to minor typos that will make me want to pull my hair out when trying to find them.
 
-What did you learn that will name the next assignment easier?
-: (answer here)
+What did you learn that will make the next assignment easier?
+: Well, I am unsure what the next assignment entails, however, having learned the design and implementation of ERDs, I assume this will help me organize and relate datasets for a larger project.
 

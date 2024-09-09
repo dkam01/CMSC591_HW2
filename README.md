@@ -1,20 +1,7 @@
-# Welcome to Homework 2 - CMSC408 - Fall 2024
+# Homework 2 - CMSC408 - Fall 2024
 
-( This text is to be replaced with a description of your repo and the homework assignment.)
-( YOU must MAKE THIS YOUR OWN.  I'm trying to help you create a habit of ALWAYS modifying the README.md)
-( GITHUB will create a pretty front page for your repository from this markdown file.)
+## Overview
 
-To learn more about writing good README.md files, see:
+This project contains a practice problem set for creating entity relation diagrams using both Chen's and Crow's foot notations. The problem set emulates various real world scenarios where proper planning through ERDs is pivotal to database management.
 
-<https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/>
-
-This is a scaffold project. I’ll be providing scaffolds throughout the
-semester to get you working faster, and to make grading much easier for
-the TA team.
-
-This repository supports Homework 2. Here are the homework specs and tasks:
-
-<https://virginiacommonwealth.instructure.com/courses/105097/assignments/966518>
-
-Good luck!
-
+The full problem set and instructions can be found [here](https://virginiacommonwealth.instructure.com/courses/105097/assignments/966518).
